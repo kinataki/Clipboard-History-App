@@ -2,6 +2,7 @@
 ; #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+SetCapsLockState , Off
 
 Gui, Add, ListView , r10 -Hdr Grid, no|content
 Gui, 1:Default
@@ -16,6 +17,15 @@ LV_Add("", "6", item6)
 LV_Add("", "7", item7)
 LV_Add("", "8", item8)
 LV_Add("", "9", item9)
+
+;HasVal(haystack, needle) {
+	;for index, value in haystack
+		;if (value = needle)
+			;return True
+	;if !(IsObject(haystack))
+		;return false
+	;return 0
+;}
 
 onclipboardchange("Shiftone")
 
@@ -32,18 +42,21 @@ Shiftone(1) {
 	global item9
 	
 	
-	; a
-	; a b c d e
 	
-	global itemlist := {item1: item1, item2: item2, item3: item3, item4: item4, item5: item5, item6: item6, item7: item7, item8: item8, item9: item9}
-	for key, value in itemlist
-		if (value != "" and value = Clipboard)
-		{
-			%key% := ""
-		}
+	;global itemlist := {item1: item1, item2: item2, item3: item3, item4: item4, item5: item5, item6: item6, item7: item7, item8: item8, item9: item9}
 	
+	;if (hasVal(itemlist, Clipboard))
+	;{
+		;for key, value in itemlist
+			;if (value != "" and value = Clipboard)
+			;{
+				;%key% := ""
+			;}
+	;}
 	
-	if (item1 = "")
+	if (Clipboard = item1)
+		sleep 1
+	else if (item1 = "")
 	{
 		item1 := Clipboard
 	}
