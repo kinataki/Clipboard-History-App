@@ -20,7 +20,7 @@ LV_Add("", "9", item9)
 onclipboardchange("Shiftone")
 
 Shiftone(1) {
-	
+	;if any of them is equal to the clipboard, bring that one to the first item and shift every one up.
 	global item1 
 	global item2
 	global item3
@@ -30,6 +30,18 @@ Shiftone(1) {
 	global item7
 	global item8
 	global item9
+	
+	
+	; a
+	; a b c d e
+	
+	global itemlist := {item1: item1, item2: item2, item3: item3, item4: item4, item5: item5, item6: item6, item7: item7, item8: item8, item9: item9}
+	for key, value in itemlist
+		if (value != "" and value = Clipboard)
+		{
+			%key% := ""
+		}
+	
 	
 	if (item1 = "")
 	{
@@ -103,6 +115,7 @@ Shiftone(1) {
 		item2 := item1
 		item1 := Clipboard
 	}
+	
 	LV_Modify(1,, "1", item1)
 	LV_Modify(2,, "2", item2)
 	LV_Modify(3,, "3", item3)
