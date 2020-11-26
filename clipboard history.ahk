@@ -3,7 +3,7 @@
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 SetCapsLockState , Off
-
+GUI +Disabled +AlwaysOnTop
 Gui, Add, ListView , r10 -Hdr Grid, no|content
 Gui, 1:Default
 LV_ModifyCol(1, 30)
@@ -26,6 +26,16 @@ LV_Add("", "9", item9)
 		;return false
 	;return 0
 ;}
+
+global item1 
+global item2
+global item3
+global item4
+global item5
+global item6
+global item7
+global item8
+global item9
 
 onclipboardchange("Shiftone")
 
@@ -62,71 +72,35 @@ Shiftone(1) {
 	}
 	else if (item2 = "")
 	{
-		item2 := item1
-		item1 := Clipboard
+		item2 := item1, item1 := Clipboard
 	}
 	else if (item3 = "")
 	{
-		item3 := item2
-		item2 := item1
-		item1 := Clipboard
+		item3 := item2, item2 := item1, item1 := Clipboard
 	}
 	else if (item4 = "")
 	{
-		item4 := item3
-		item3 := item2
-		item2 := item1
-		item1 := Clipboard
+		item4 := item3, item3 := item2, item2 := item1, item1 := Clipboard
 	}
 	else if (item5 = "")
 	{
-		item5 := item4
-		item4 := item3
-		item3 := item2
-		item2 := item1
-		item1 := Clipboard
+		item5 := item4, item4 := item3, item3 := item2, item2 := item1, item1 := Clipboard
 	}
 	else if (item6 = "")
 	{
-		item6 := item5
-		item5 := item4
-		item4 := item3
-		item3 := item2
-		item2 := item1
-		item1 := Clipboard
+		item6 := item5, item5 := item4, item4 := item3, item3 := item2, item2 := item1, item1 := Clipboard
 	}
 	else if (item7 = "")
 	{
-		item7 := item6
-		item6 := item5
-		item5 := item4
-		item4 := item3
-		item3 := item2
-		item2 := item1
-		item1 := Clipboard
+		item7 := item6, item6 := item5, item5 := item4, item4 := item3, item3 := item2, item2 := item1, item1 := Clipboard
 	}
 	else if (item8 = "")
 	{
-		item8 := item7
-		item7 := item6
-		item6 := item5
-		item5 := item4
-		item4 := item3
-		item3 := item2
-		item2 := item1
-		item1 := Clipboard
+		item8 := item7, item7 := item6, item6 := item5, item5 := item4, item4 := item3, item3 := item2, item2 := item1, item1 := Clipboard
 	}
 	else
 	{
-		item9 := item8
-		item8 := item7
-		item7 := item6
-		item6 := item5
-		item5 := item4
-		item4 := item3
-		item3 := item2
-		item2 := item1
-		item1 := Clipboard
+		item9 := item8, item8 := item7, item7 := item6, item6 := item5, item5 := item4, item4 := item3, item3 := item2, item2 := item1, item1 := Clipboard
 	}
 	
 	LV_Modify(1,, "1", item1)
@@ -142,18 +116,23 @@ Shiftone(1) {
 return
 
 Capslock::
-Gui, Show
-NumberPressedIncluded := InputHook("l1", "123456789")
+GUI, Show, NoActivate 
+NumberPressedIncluded := InputHook("l1", "123456789abg{Esc}")
 NumberPressedIncluded.start()
 NumberPressedIncluded.Wait()
-NumberPressed := NumberPressedIncluded.Endkey
-tosend := % "item" Numberpressed
-toreallysend := % "%item" Numberpressed "%"
-ClipboardItemSelected := ""
-Transform, ClipboardItemSelected, Deref, %toreallysend%
-%tosend% := ""
-Gui, Cancel
-Clipboard := ClipboardItemSelected
-Clipwait 0.1
-Send ^v
+if (NumberPressedIncluded.Endkey = 1) or (NumberPressedIncluded.Endkey = 2) or (NumberPressedIncluded.Endkey = 3) or (NumberPressedIncluded.Endkey = 4) or (NumberPressedIncluded.Endkey = 5) or (NumberPressedIncluded.Endkey = 6) or (NumberPressedIncluded.Endkey = 7) or (NumberPressedIncluded.Endkey = 8) or (NumberPressedIncluded.Endkey = 9)
+{
+	NumberPressed := NumberPressedIncluded.Endkey
+	tosend := % "item" Numberpressed
+	toreallysend := % "%item" Numberpressed "%"
+	ClipboardItemSelected := ""
+	Transform, ClipboardItemSelected, Deref, %toreallysend%
+	%tosend% := ""
+	Gui, Cancel
+	Clipboard := ClipboardItemSelected
+	Clipwait 0.1
+	Send ^v
+}
+else
+	Gui, Cancel
 return
